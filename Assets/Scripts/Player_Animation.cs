@@ -34,7 +34,7 @@ public partial class Player
         animator.SetBool("Unequip", true);
     }
 
-    private void Begin_Equip()
+    private void Begin_Equip() // animation event
     {
         swordObject.transform.parent.DetachChildren();
 
@@ -45,7 +45,7 @@ public partial class Player
         swordObject.transform.SetParent(handTransform, false);
     }
 
-    private void End_Equip()
+    private void End_Equip() // animation event
     {
         bEquipped = true;
 
@@ -53,7 +53,7 @@ public partial class Player
         animator.SetBool("Equip", false);
     }
 
-    private void Begin_Unequip()
+    private void Begin_Unequip() // animation event
     {
         swordObject.transform.parent.DetachChildren();
 
@@ -64,7 +64,7 @@ public partial class Player
         swordObject.transform.SetParent(holsterTransform, false);
     }
 
-    private void End_Unequip()
+    private void End_Unequip() //animation event
     {
         bEquipped = false;
 

@@ -42,8 +42,4 @@ public partial class Player : MonoBehaviour
         Update_Attacking();
 	}
 
-    private void Update_Moving()
-    {
-        
-    }
 }
