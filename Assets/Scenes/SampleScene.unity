@@ -4514,8 +4514,6 @@ MonoBehaviour:
   stopDistance: 0.5
   moveSpeed: 3
   waitTime: 2
-=======
->>>>>>> 3388878c0aa0f39656a825224f0bcb887d9d8b5c
 --- !u!4 &5901452233557358711
 Transform:
   m_ObjectHideFlags: 0
