@@ -23,10 +23,12 @@ public class EnemyMovingComponent : MonoBehaviour
 
         GetNewRandomPosition(transform.position);  // 첫 랜덤 위치 생성
         animator.SetFloat("SpeedY", animatorSpeed);
+
     }
 
     void Update()
     {
+        
         animator.SetFloat("SpeedY", animatorSpeed);
         if (isMoving & healthPoint.IsDead == false)
         {
@@ -39,6 +41,7 @@ public class EnemyMovingComponent : MonoBehaviour
                 // 도착했으면 잠시 멈추고 다시 움직이기 위한 Coroutine 실행
                 StartCoroutine(WaitAndMoveAgain());
             }
+
         }
     }
 
