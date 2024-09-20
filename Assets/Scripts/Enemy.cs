@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(HealthPointComponent))]
-public class Enemy : MonoBehaviour, IDamagable
+public partial class Enemy : MonoBehaviour, IDamagable
 {
     private Animator animator;
     private new Rigidbody rigidbody;
