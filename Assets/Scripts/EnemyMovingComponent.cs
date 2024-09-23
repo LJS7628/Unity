@@ -4,14 +4,15 @@ using UnityEngine;
 public class EnemyMovingComponent : MonoBehaviour
 {
 
-    private float moveRadius = 5.0f;
+    private float moveRadius = 8f;
     private float stopDistance = 0.5f;
-    private float chaseDistance = 3.0f;
+    private float chaseDistance = 4.0f;
     private float moveSpeed = 3f;
     private float waitTime = 1f;
     private Vector3 targetPosition;
     private Vector3 moveDirection;
     private bool isMoving = true;
+    private bool bChase = false;
     private bool chased = false;
 
     private Animator animator;
@@ -24,16 +25,13 @@ public class EnemyMovingComponent : MonoBehaviour
         animator = GetComponent<Animator>();
         healthPoint = GetComponent<HealthPointComponent>();
         player = GameObject.Find("Player");
-
-        GetNewRandomPosition(transform.position);
-        animator.SetFloat("SpeedY", animatorSpeed);
-
     }
 
     void Update()
     {
-        
+
         animator.SetFloat("SpeedY", animatorSpeed);
+        bChase = isChasing(player);
         if (healthPoint.IsDead == false)
         {
 
@@ -44,12 +42,11 @@ public class EnemyMovingComponent : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, targetPosition) < stopDistance)
                 {
-
                     StartCoroutine(WaitAndMoveAgain());
                 }
             }
 
-            else if (isChasing(player))
+            else if (bChase)
             {
                 animatorSpeed = 2.0f;
                 GetDirection(player.transform.position);
@@ -57,7 +54,7 @@ public class EnemyMovingComponent : MonoBehaviour
                 chased = true;
             }
 
-            if (isChasing(player) == false & chased)
+            if (bChase == false & chased)
             {
                 StartCoroutine(WaitAndMoveAgain());
                 chased = false;
@@ -97,16 +94,31 @@ public class EnemyMovingComponent : MonoBehaviour
     IEnumerator WaitAndMoveAgain()
     {
         animatorSpeed = 0.0f;
-        isMoving = false;
+        Stop();
         yield return new WaitForSeconds(waitTime);
 
         GetNewRandomPosition(transform.position);
-        isMoving = true;
+        Move();
         animatorSpeed = 2.0f;
 
     }
 
-    bool isChasing(GameObject player)
+    public void Move() 
+    {
+        isMoving = true;
+    }
+
+    public void Stop()
+    {
+        isMoving =false;
+    }
+
+    public void StopChase() 
+    {
+        bChase = false;
+    }
+
+    public bool isChasing(GameObject player)
     {
         if (Vector3.Distance(transform.position, player.transform.position) < chaseDistance)
             return true;
@@ -116,8 +128,8 @@ public class EnemyMovingComponent : MonoBehaviour
 
     bool isMoveRange()
     {
-        Vector3 upRange = new Vector3(15, 0, 0);
-        Vector3 rightRange = new Vector3(0, 0, 15);
+        Vector3 upRange = new Vector3(13.5f, 0, 0);
+        Vector3 rightRange = new Vector3(0, 0, 13.5f);
 
         if (targetPosition.x > -upRange.x & targetPosition.x < upRange.x)
         {

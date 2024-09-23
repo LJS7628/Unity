@@ -187,7 +187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209221983}
   m_LocalRotation: {x: 0.29722703, y: -0.011760489, z: 0.0036668782, w: 0.95472735}
-  m_LocalPosition: {x: 0.5, y: 1.7, z: -2.5}
+  m_LocalPosition: {x: 0.5, y: 1.7, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -537,6 +537,37 @@ Transform:
   m_Father: {fileID: 1449305669}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &721835495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721835496}
+  m_Layer: 0
+  m_Name: Holster_Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &721835496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721835495}
+  m_LocalRotation: {x: 0.95780903, y: -2.4374458e-10, z: -2.4738256e-10, w: 0.2874056}
+  m_LocalPosition: {x: 0.107, y: -0.208, z: 0.175}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2559285841735278793}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1.7, z: -2.5}
+  m_LocalPosition: {x: 0.5, y: 1.7, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -656,6 +687,37 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1029780665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029780666}
+  m_Layer: 0
+  m_Name: Hand_Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1029780666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029780665}
+  m_LocalRotation: {x: 0.62766695, y: 0.53149235, z: -0.47050583, w: 0.31964728}
+  m_LocalPosition: {x: -0.0084, y: 0.1004, z: 0.0146}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1852576805509046530}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1084467383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147504803918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1692,9 +1754,10 @@ GameObject:
   - component: {fileID: 5866666020343115920}
   - component: {fileID: 5866666020343115919}
   - component: {fileID: 5866666020343115922}
+  - component: {fileID: 5866666020343115923}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1716,7 +1779,7 @@ GameObject:
   - component: {fileID: 5866666020803306336}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2170,6 +2233,7 @@ Transform:
   - {fileID: 1189529851961267874}
   - {fileID: 9118793901173012934}
   - {fileID: 8447082968178706996}
+  - {fileID: 1029780666}
   m_Father: {fileID: 2563496968583457634}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2527,6 +2591,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7151331951672424471}
+  - {fileID: 721835496}
   m_Father: {fileID: 5465940245480888757}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4421,6 +4486,19 @@ MonoBehaviour:
   limitPitchAngle: {x: 20, y: 340}
   mouseSpeed: 0.25
   followTargetName: FollowTarget
+--- !u!114 &5866666020343115923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147504803918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb817897d95aab841a9018fb90b61a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealthPoint: 100
 --- !u!95 &5866666020803306331
 Animator:
   serializedVersion: 5
@@ -4454,6 +4532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032ee0a28e5c72b4393c53297d765d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordPrefab: {fileID: 1000011335475624, guid: a7cbcfdee4cd4614cb91c9492e11342d, type: 3}
 --- !u!114 &5866666020803306333
 MonoBehaviour:
   m_ObjectHideFlags: 0

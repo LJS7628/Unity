@@ -6,10 +6,19 @@ using UnityEngine;
 [RequireComponent(typeof(HealthPointComponent))]
 public partial class Enemy : MonoBehaviour, IDamagable
 {
+    [SerializeField]
+    private GameObject swordPrefab;
+    private GameObject swordObject;
+
+    private Transform holsterTransform;
+    private Transform handTransform;
+
     private Animator animator;
     private new Rigidbody rigidbody;
     private HealthPointComponent healthPoint;
     private EnemyMovingComponent moving;
+    private GameObject player;
+    private Sword sword;
 
     private List<Material> materialList;
     private List<Color> originColorList;
@@ -20,6 +29,7 @@ public partial class Enemy : MonoBehaviour, IDamagable
         rigidbody = GetComponent<Rigidbody>();
         healthPoint = GetComponent<HealthPointComponent>();
         moving = GetComponent<EnemyMovingComponent>();
+        player = GameObject.Find("Player");
 
         materialList = new List<Material>();
         originColorList = new List<Color>();
@@ -35,14 +45,22 @@ public partial class Enemy : MonoBehaviour, IDamagable
         }
     }
 
-    private void Start ()
-	{
-        
-	}
+    private void Start()
+    {
+        if (swordPrefab != null)
+        {
+            holsterTransform = transform.FindChildByName("Holster_Sword");
+            handTransform = transform.FindChildByName("Hand_Sword");
+
+            swordObject = Instantiate<GameObject>(swordPrefab, holsterTransform);
+            sword = swordObject.GetComponent<Sword>();
+        }
+    }
 
     private void Update()
     {
 
+        Update_Attacking();
     }
 
     public void Damage(GameObject attacker, Sword causer, Vector3 hitPoint, DoActionData data)
@@ -105,52 +123,4 @@ public partial class Enemy : MonoBehaviour, IDamagable
         rigidbody.isKinematic = true;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        int segments = 50;
-        float radius = 3f;
-
-        // 이전 점과 현재 점을 저장할 변수
-        Vector3 prevPoint = Vector3.zero;
-        Vector3 firstPoint = Vector3.zero;
-
-        // 각 세그먼트마다 그릴 각도
-        float angleStep = 360f / segments;
-
-        // 시작 각도 설정
-        float angle = 0f;
-
-        // 원의 각 점을 순차적으로 그리기
-        for (int i = 0; i <= segments; i++)
-        {
-            // 현재 각도에 따른 x, z 좌표 계산 (2D 평면에서 원을 그리므로 x, z를 사용)
-            float rad = Mathf.Deg2Rad * angle;
-            float x = Mathf.Cos(rad) * radius;
-            float z = Mathf.Sin(rad) * radius;
-
-            // 현재 점의 위치
-            Vector3 currentPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
-
-            // 첫 번째 점 저장
-            if (i == 0)
-            {
-                firstPoint = currentPoint;
-            }
-            else
-            {
-                // 이전 점과 현재 점을 선으로 연결
-                Gizmos.DrawLine(prevPoint, currentPoint);
-            }
-
-            // 이전 점을 현재 점으로 갱신
-            prevPoint = currentPoint;
-
-            // 각도를 증가시켜 다음 점으로 이동
-            angle += angleStep;
-        }
-
-        // 마지막 점과 첫 번째 점을 연결하여 원을 닫음
-        Gizmos.DrawLine(prevPoint, firstPoint);
-    }
 }
