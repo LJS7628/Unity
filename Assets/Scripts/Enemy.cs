@@ -20,9 +20,6 @@ public partial class Enemy : MonoBehaviour, IDamagable
     private GameObject player;
     private Sword sword;
 
-    private List<Material> materialList;
-    private List<Color> originColorList;
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -31,18 +28,7 @@ public partial class Enemy : MonoBehaviour, IDamagable
         moving = GetComponent<EnemyMovingComponent>();
         player = GameObject.Find("Player");
 
-        materialList = new List<Material>();
-        originColorList = new List<Color>();
-
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        foreach(Renderer renderer in renderers)
-        {
-            foreach(Material material in renderer.materials)
-            {
-                materialList.Add(material);
-                originColorList.Add(material.color);
-            }
-        }
+      
     }
 
     private void Start()
@@ -55,27 +41,22 @@ public partial class Enemy : MonoBehaviour, IDamagable
             swordObject = Instantiate<GameObject>(swordPrefab, holsterTransform);
             sword = swordObject.GetComponent<Sword>();
         }
+
+        Equip();
     }
 
     private void Update()
     {
 
-        Update_Attacking();
+        //Update_Attacking();
     }
 
     public void Damage(GameObject attacker, Sword causer, Vector3 hitPoint, DoActionData data)
     {
         healthPoint.Damage(data.Power);
 
-
-        foreach (Material material in materialList)
-            material.color = Color.red;
-
-        Invoke("RestoreColor", 0.15f);
-
         if(healthPoint.IsDead == false)
             transform.LookAt(attacker.transform, Vector3.up);
-
 
         StopFrameComponent.Instance.Delay(data.StopFrame);
 
@@ -108,19 +89,21 @@ public partial class Enemy : MonoBehaviour, IDamagable
 
         Destroy(gameObject, 5.0f);
     }
-
-    private void RestoreColor()
-    {
-        for (int i = 0; i < materialList.Count; i++)
-            materialList[i].color = originColorList[i];
-    }
-
     private IEnumerator Change_IsKinemetics(int frame)
     {
         for (int i = 0; i < frame; i++)
             yield return new WaitForFixedUpdate();
 
         rigidbody.isKinematic = true;
+    }
+
+    private void Equip() 
+    {
+        swordObject.transform.parent.DetachChildren();
+        swordObject.transform.position = Vector3.zero;
+        swordObject.transform.rotation = Quaternion.identity;
+        swordObject.transform.localScale = Vector3.one;
+        swordObject.transform.SetParent(handTransform, false);
     }
 
 }

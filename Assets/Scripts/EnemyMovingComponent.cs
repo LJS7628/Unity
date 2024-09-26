@@ -1,143 +1,130 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EnemyMovingComponent : MonoBehaviour
 {
 
-    private float moveRadius = 8f;
-    private float stopDistance = 0.5f;
-    private float chaseDistance = 4.0f;
-    private float moveSpeed = 3f;
-    private float waitTime = 1f;
-    private Vector3 targetPosition;
-    private Vector3 moveDirection;
-    private bool isMoving = true;
-    private bool bChase = false;
-    private bool chased = false;
-
     private Animator animator;
     private HealthPointComponent healthPoint;
     private GameObject player;
-    private float animatorSpeed = 2.0f;
 
+    private float chaseRadius = 5.0f;
+
+    private Vector3 direction;
+    private Vector3 randomPoint;
+    private float speed = 2.0f;
+
+    private float stopDistance = 0.5f;
+    private float waitTime = 2.0f;
+
+    private bool isMoving=true;
     void Start()
     {
         animator = GetComponent<Animator>();
         healthPoint = GetComponent<HealthPointComponent>();
         player = GameObject.Find("Player");
+
+        GetRandomPosition();
     }
+
+
 
     void Update()
     {
+        animator.SetFloat("SpeedY", speed);
 
-        animator.SetFloat("SpeedY", animatorSpeed);
-        bChase = isChasing(player);
         if (healthPoint.IsDead == false)
         {
-
-            if (isMoving & isChasing(player) == false)
+            if (isMoving)
             {
-                GetDirection(targetPosition);
-                MoveTowardsTarget();
+                Moving();
 
-                if (Vector3.Distance(transform.position, targetPosition) < stopDistance)
+                if (Vector3.Distance(transform.position, randomPoint) < stopDistance)
                 {
                     StartCoroutine(WaitAndMoveAgain());
                 }
             }
 
-            else if (bChase)
+            else if (CheckNearPlayer(chaseRadius))
             {
-                animatorSpeed = 2.0f;
-                GetDirection(player.transform.position);
-                MoveTowardsTarget();
-                chased = true;
+                Chasing();
             }
 
-            if (bChase == false & chased)
-            {
-                StartCoroutine(WaitAndMoveAgain());
-                chased = false;
-            }
 
         }
     }
 
 
-    void GetNewRandomPosition(Vector3 currentPosition)
+    private Collider[] colliders;
+    bool CheckNearPlayer(float radius)
     {
+        colliders = Physics.OverlapSphere(transform.position, radius);
 
-        Vector2 randomPoint2D = Random.insideUnitCircle * moveRadius;
-        targetPosition = new Vector3(currentPosition.x + randomPoint2D.x, currentPosition.y, currentPosition.z + randomPoint2D.y);
-        if (isMoveRange() == false)
-            GetNewRandomPosition(transform.position);
-
-        GetDirection(targetPosition);
-    }
-
-
-    void MoveTowardsTarget()
-    {
-
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
-    }
-
-    void GetDirection(Vector3 target)
-    {
-        moveDirection = (target - transform.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-        transform.rotation = targetRotation;
-
-    }
-
-
-    IEnumerator WaitAndMoveAgain()
-    {
-        animatorSpeed = 0.0f;
-        Stop();
-        yield return new WaitForSeconds(waitTime);
-
-        GetNewRandomPosition(transform.position);
-        Move();
-        animatorSpeed = 2.0f;
-
-    }
-
-    public void Move() 
-    {
-        isMoving = true;
-    }
-
-    public void Stop()
-    {
-        isMoving =false;
-    }
-
-    public void StopChase() 
-    {
-        bChase = false;
-    }
-
-    public bool isChasing(GameObject player)
-    {
-        if (Vector3.Distance(transform.position, player.transform.position) < chaseDistance)
-            return true;
-
-        return false;
-    }
-
-    bool isMoveRange()
-    {
-        Vector3 upRange = new Vector3(13.5f, 0, 0);
-        Vector3 rightRange = new Vector3(0, 0, 13.5f);
-
-        if (targetPosition.x > -upRange.x & targetPosition.x < upRange.x)
+       
+        foreach (Collider collider in colliders)
         {
-            if (targetPosition.z > -rightRange.z & targetPosition.z < rightRange.z)
+            if (collider.name == "Player")
                 return true;
         }
 
         return false;
+    }
+
+    bool CheckNearWall()
+    {
+        colliders = Physics.OverlapSphere(transform.position, 0.5f);
+
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.tag == "wall")
+                return true;
+        }
+
+        return false;
+    }
+
+    void GetDirection(Vector3 target)
+    {
+        direction = (target - transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = targetRotation;
+    }
+
+    void GetRandomPosition() 
+    {
+        if (CheckNearWall())
+            GetRandomPosition();
+
+        float x = Random.Range(-5.0f, 5.0f);
+        float y = Random.Range(-5.0f, 5.0f);
+        randomPoint = new Vector3(transform.position.x+x, transform.position.y, transform.position.z+y);
+
+    }
+    void Moving()
+    {
+        GetDirection(randomPoint);
+        transform.position = Vector3.MoveTowards(transform.position, randomPoint, speed * Time.deltaTime);
+    }
+
+    void Chasing()
+    {
+        speed = 2.0f;
+        GetDirection(player.transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+    }
+
+    IEnumerator WaitAndMoveAgain()
+    {
+        speed = 0.0f;
+        isMoving = false;
+        yield return new WaitForSeconds(waitTime);
+
+        GetRandomPosition();
+        isMoving = true;
+        speed = 2.0f;
+
     }
 
 }
