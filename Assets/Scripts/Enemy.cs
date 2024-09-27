@@ -47,8 +47,8 @@ public partial class Enemy : MonoBehaviour, IDamagable
 
     private void Update()
     {
-
-        //Update_Attacking();
+        if (moving.CheckNearPlayer(1.5f))
+            Update_Attacking();
     }
 
     public void Damage(GameObject attacker, Sword causer, Vector3 hitPoint, DoActionData data)

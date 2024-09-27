@@ -27,8 +27,6 @@ public class Sword : MonoBehaviour
     private GameObject rootObject;
 
     private List<GameObject> hittedList;
-    
-
     private void Awake()
     {
         collider = GetComponent<Collider>();
@@ -59,28 +57,58 @@ public class Sword : MonoBehaviour
 
 
         IDamagable damage = other.gameObject.GetComponent<IDamagable>();
-        Player player = rootObject.GetComponent<Player>();
-
-        if (player != null && damage != null)
+        if (rootObject.name == "Player") 
         {
-            DoActionData data = doActionDatas[player.ComboIndex];
+            Player player = rootObject.GetComponent<Player>();
 
-            CinemachineImpulseSource source = GetComponent<CinemachineImpulseSource>();
-            if(source != null && data.ShakeDuration > 0.0f && data.ShakeDirection.magnitude > 0.0f)
+            if (player != null && damage != null)
             {
-                source.m_ImpulseDefinition.m_ImpulseDuration = data.ShakeDuration;
-                source.m_DefaultVelocity = data.ShakeDirection;
+                DoActionData data = doActionDatas[player.ComboIndex];
 
-                source.GenerateImpulse();
+                CinemachineImpulseSource source = GetComponent<CinemachineImpulseSource>();
+                if (source != null && data.ShakeDuration > 0.0f && data.ShakeDirection.magnitude > 0.0f)
+                {
+                    source.m_ImpulseDefinition.m_ImpulseDuration = data.ShakeDuration;
+                    source.m_DefaultVelocity = data.ShakeDirection;
+
+                    source.GenerateImpulse();
+                }
+
+
+                Vector3 hitPoint = collider.ClosestPoint(other.transform.position); //World
+                hitPoint = other.transform.InverseTransformPoint(hitPoint);
+
+                damage.Damage(rootObject.gameObject, this, hitPoint, data);
+            }
+        }
+
+        if (rootObject.name == "Enemy") 
+        {
+            Enemy enemy = rootObject.GetComponent<Enemy>();
+
+            if (enemy != null && damage != null)
+            {
+                DoActionData data = doActionDatas[enemy.ComboIndex];
+
+                CinemachineImpulseSource source = GetComponent<CinemachineImpulseSource>();
+                if (source != null && data.ShakeDuration > 0.0f && data.ShakeDirection.magnitude > 0.0f)
+                {
+                    source.m_ImpulseDefinition.m_ImpulseDuration = data.ShakeDuration;
+                    source.m_DefaultVelocity = data.ShakeDirection;
+
+                    source.GenerateImpulse();
+                }
+
+
+                Vector3 hitPoint = collider.ClosestPoint(other.transform.position); //World
+                hitPoint = other.transform.InverseTransformPoint(hitPoint);
+
+                damage.Damage(rootObject.gameObject, this, hitPoint, data);
             }
 
-
-            Vector3 hitPoint = collider.ClosestPoint(other.transform.position); //World
-            hitPoint = other.transform.InverseTransformPoint(hitPoint);
-
-            damage.Damage(rootObject.gameObject, this, hitPoint, data);
         }
-            
+
+
     }
 
     public void Begin_Collision()

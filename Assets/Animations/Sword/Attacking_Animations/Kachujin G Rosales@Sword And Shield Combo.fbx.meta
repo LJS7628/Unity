@@ -57,20 +57,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.083538085
-        functionName: Begin_Combo
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: b3a266e627d702c42900017a26703d4a, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.27272728
-        functionName: End_Combo
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: b3a266e627d702c42900017a26703d4a, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.2899263
         functionName: Begin_Collision
         data: 

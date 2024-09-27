@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,16 +10,19 @@ public class EnemyMovingComponent : MonoBehaviour
     private HealthPointComponent healthPoint;
     private GameObject player;
 
-    private float chaseRadius = 5.0f;
+    private float chaseRadius = 3.0f;
 
     private Vector3 direction;
     private Vector3 randomPoint;
+    private float animationSpeed = 2.0f;
+
     private float speed = 2.0f;
 
     private float stopDistance = 0.5f;
     private float waitTime = 2.0f;
 
-    private bool isMoving=true;
+    private bool bCanMove = true;
+    private bool chased = false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -32,11 +36,11 @@ public class EnemyMovingComponent : MonoBehaviour
 
     void Update()
     {
-        animator.SetFloat("SpeedY", speed);
+        animator.SetFloat("SpeedY", animationSpeed);
 
         if (healthPoint.IsDead == false)
         {
-            if (isMoving)
+            if (bCanMove)
             {
                 Moving();
 
@@ -44,12 +48,22 @@ public class EnemyMovingComponent : MonoBehaviour
                 {
                     StartCoroutine(WaitAndMoveAgain());
                 }
+
+                if (CheckNearPlayer(chaseRadius))
+                {
+                    chased = true;
+                    Chasing();
+                }
+
+                if (CheckNearPlayer(chaseRadius) == false & chased)
+                {
+                    StartCoroutine(StopChase());
+                }
             }
 
-            else if (CheckNearPlayer(chaseRadius))
-            {
-                Chasing();
-            }
+
+
+
 
 
         }
@@ -57,28 +71,14 @@ public class EnemyMovingComponent : MonoBehaviour
 
 
     private Collider[] colliders;
-    bool CheckNearPlayer(float radius)
+    public bool CheckNearPlayer(float radius)
     {
         colliders = Physics.OverlapSphere(transform.position, radius);
 
-       
+
         foreach (Collider collider in colliders)
         {
             if (collider.name == "Player")
-                return true;
-        }
-
-        return false;
-    }
-
-    bool CheckNearWall()
-    {
-        colliders = Physics.OverlapSphere(transform.position, 0.5f);
-
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.tag == "wall")
                 return true;
         }
 
@@ -92,39 +92,58 @@ public class EnemyMovingComponent : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-    void GetRandomPosition() 
+    void GetRandomPosition()
     {
-        if (CheckNearWall())
-            GetRandomPosition();
-
-        float x = Random.Range(-5.0f, 5.0f);
-        float y = Random.Range(-5.0f, 5.0f);
-        randomPoint = new Vector3(transform.position.x+x, transform.position.y, transform.position.z+y);
+        float x = Random.Range(-13.0f, +13.0f);
+        float y = Random.Range(-13.0f, +13.0f);
+        randomPoint = new Vector3(x, 0.0f, y);
 
     }
     void Moving()
     {
+        if (chased)
+            return;
         GetDirection(randomPoint);
+        speed = 2.0f;
         transform.position = Vector3.MoveTowards(transform.position, randomPoint, speed * Time.deltaTime);
     }
 
     void Chasing()
     {
         speed = 2.0f;
+        animationSpeed = 2.0f;
         GetDirection(player.transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, player.transform.position) >= 1.5f)
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
     IEnumerator WaitAndMoveAgain()
     {
-        speed = 0.0f;
-        isMoving = false;
+        animationSpeed = 0.0f;
+        bCanMove = false;
         yield return new WaitForSeconds(waitTime);
 
         GetRandomPosition();
-        isMoving = true;
-        speed = 2.0f;
+        bCanMove = true;
+        animationSpeed = 2.0f;
 
+    }
+
+    IEnumerator StopChase()
+    {
+        animationSpeed = 0.0f;
+        yield return new WaitForSeconds(waitTime);
+        chased = false;
+        animationSpeed = 2.0f;
+    }
+
+    public void Move()
+    {
+        bCanMove = true;
+    }
+    public void Stop()
+    {
+        bCanMove = false;
     }
 
 }
