@@ -61,12 +61,14 @@ public class EnemyMovingComponent : MonoBehaviour
                 }
             }
 
-
-
-
-
-
         }
+
+        if (Player.isPlayerDead) 
+        {
+            bCanMove = false;
+            animationSpeed = 0.0f;
+        }
+            
     }
 
 

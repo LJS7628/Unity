@@ -2,14 +2,14 @@ using UnityEngine;
 
 public partial class Enemy
 {
-    //3frame = beginCombo;
-    //12frame = endCombo;
+
+    private bool bComboEnable;
+    private bool bComboExist;
 
     private int comboIndex;
     public int ComboIndex { get => comboIndex; }
     private void Update_Attacking()
     {
-
         moving.Stop();
         animator.SetBool("Attack", true);
     }
@@ -27,13 +27,28 @@ public partial class Enemy
 
     private void Begin_Attack()
     {
-        //animator.SetTrigger("NextCombo");
+        //if (bComboExist == false)
+        //    return;
+
+        //bComboExist = false;
+
+        comboIndex++;
+        animator.SetTrigger("NextCombo");
     }
 
     private void End_Attack()
     {
-
-        moving.Move();
+        comboIndex = 0;
         animator.SetBool("Attack", false);
+    }
+
+    private void Begin_Combo()
+    {
+        bComboEnable = true;
+    }
+
+    private void End_Combo()
+    {
+        bComboEnable = false;
     }
 }
