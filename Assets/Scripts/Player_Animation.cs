@@ -154,4 +154,31 @@ public partial class Player
         bAttacking = false;
         animator.SetBool("Attacking", false);
     }
+
+    private bool bBlocking;
+    private void Update_Blocking() 
+    {
+        if (Input.GetButtonDown("Block") == false)
+            return;
+
+        bool bCheck = false;
+        bCheck |= (bEquipped == false);
+        bCheck |= (bDrawing == true);
+        bCheck |= (bSheathing == true);
+
+        if (bCheck)
+            return;
+
+        if (bBlocking == true)
+            return;
+
+        bBlocking = true;
+        animator.SetBool("Blocking",true);
+    }
+
+    private void End_Block() 
+    {
+        bBlocking = false;
+        animator.SetBool("Blocking", false);
+    }
 }

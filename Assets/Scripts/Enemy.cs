@@ -53,6 +53,17 @@ public partial class Enemy : MonoBehaviour, IDamagable
 
     public void Damage(GameObject attacker, Sword causer, Vector3 hitPoint, DoActionData data)
     {
+        if (bBlocking)
+        {
+            if (data.Particle != null)
+            {
+                GameObject obj = Instantiate<GameObject>(data.Particle, transform, false);
+                obj.transform.localPosition = hitPoint + data.ParticleOffset;
+                obj.transform.localScale = data.ParticleScale;
+            }
+            return;
+        }
+
         healthPoint.Damage(data.Power);
 
         if(healthPoint.IsDead == false)
