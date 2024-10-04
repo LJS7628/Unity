@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &70153590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70153591}
+  m_Layer: 0
+  m_Name: Hand_Shield
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &70153591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70153590}
+  m_LocalRotation: {x: -0.3976711, y: -0.7088127, z: 0.1864291, w: 0.5519841}
+  m_LocalPosition: {x: 0.03, y: 0.013, z: -0.05}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6502182840727751433}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &209221983
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +249,37 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!1 &226033894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 226033895}
+  m_Layer: 0
+  m_Name: Holster_Shield
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &226033895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226033894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8169382869773708938}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &255000765
 GameObject:
   m_ObjectHideFlags: 3
@@ -4885,6 +4947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordPrefab: {fileID: 1000011335475624, guid: a7cbcfdee4cd4614cb91c9492e11342d, type: 3}
+  shieldPrefab: {fileID: 8308779551080991626, guid: d1b6739508cfcf84abdf9c9e0b1c18f2, type: 3}
 --- !u!114 &5866666020803306333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4897,7 +4960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb817897d95aab841a9018fb90b61a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoint: 50
+  maxHealthPoint: 100
 --- !u!54 &5866666020803306334
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5312,6 +5375,7 @@ Transform:
   - {fileID: 4747904711388683087}
   - {fileID: 6629111071240490645}
   - {fileID: 5048025442445447836}
+  - {fileID: 70153591}
   m_Father: {fileID: 7410462539940061235}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6167,6 +6231,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5477181765023125520}
+  - {fileID: 226033895}
   m_Father: {fileID: 5465940245480888757}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

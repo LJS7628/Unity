@@ -11,7 +11,6 @@ public partial class Enemy
     public int ComboIndex { get => comboIndex; }
     private void Update_Attacking()
     {
-
             if (bComboEnable)
         {
             bComboEnable = false;
@@ -56,13 +55,12 @@ public partial class Enemy
         bComboExist = false;
         comboIndex++;
         animator.SetTrigger("NextCombo");
-      
+     
     }
 
     private void End_Attack()
     {
         comboIndex = 0;
-
         moving.Move();
         bAttacking = false;
         animator.SetBool("Attack", false);
@@ -82,12 +80,14 @@ public partial class Enemy
 
         bBlocking = true;
         animator.SetBool("Blocking", true);
+        Debug.Log("call");
     }
 
     private void End_Block()
     {
         bBlocking = false;
         animator.SetBool("Blocking", false);
+
     }
 
 }

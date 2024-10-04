@@ -13,6 +13,13 @@ public partial class Enemy : MonoBehaviour, IDamagable
     private Transform holsterTransform;
     private Transform handTransform;
 
+    [SerializeField]
+    private GameObject shieldPrefab;
+    private GameObject shieldObject;
+
+    private Transform holsterTransform2;
+    private Transform handTransform2;
+
     private Animator animator;
     private new Rigidbody rigidbody;
     private HealthPointComponent healthPoint;
@@ -28,7 +35,8 @@ public partial class Enemy : MonoBehaviour, IDamagable
         moving = GetComponent<EnemyMovingComponent>();
         player = GameObject.Find("Player");
 
-      
+
+        
     }
 
     private void Start()
@@ -42,25 +50,42 @@ public partial class Enemy : MonoBehaviour, IDamagable
             sword = swordObject.GetComponent<Sword>();
         }
 
+        if (shieldPrefab != null) 
+        {
+            holsterTransform2 = transform.FindChildByName("Holster_Shield");
+            handTransform2 = transform.FindChildByName("Hand_Shield");
+
+
+            shieldObject = Instantiate<GameObject>(shieldPrefab, holsterTransform2);
+        }
         Equip();
     }
 
     private void Update()
     {
-        if (moving.CheckNearPlayer(1.5f))
+        if (moving.CheckNearPlayer(1.5f) & Player.attackCount < 2)
             Update_Attacking();
+
+        else if (Player.attackCount >= 2) 
+        {
+            Update_Blocking();
+        }
+            
     }
 
     public void Damage(GameObject attacker, Sword causer, Vector3 hitPoint, DoActionData data)
     {
+        Player.attackCount++;
         if (bBlocking)
         {
+            
             if (data.Particle != null)
             {
                 GameObject obj = Instantiate<GameObject>(data.Particle, transform, false);
                 obj.transform.localPosition = hitPoint + data.ParticleOffset;
                 obj.transform.localScale = data.ParticleScale;
             }
+
             return;
         }
 
@@ -115,6 +140,13 @@ public partial class Enemy : MonoBehaviour, IDamagable
         swordObject.transform.rotation = Quaternion.identity;
         swordObject.transform.localScale = Vector3.one;
         swordObject.transform.SetParent(handTransform, false);
+
+
+        shieldObject.transform.parent.DetachChildren();
+        shieldObject.transform.position = Vector3.zero;
+        shieldObject.transform.rotation = Quaternion.identity;
+        shieldObject.transform.localScale = Vector3.one;
+        shieldObject.transform.SetParent(handTransform2, false);
     }
 
 }

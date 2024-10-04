@@ -22,6 +22,7 @@ public partial class Player : MonoBehaviour, IDamagable
     private new Rigidbody rigidbody;
 
     public static bool isPlayerDead=false;
+    public static int attackCount = 0;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -46,6 +47,7 @@ public partial class Player : MonoBehaviour, IDamagable
 
     private void Update()
     {
+        Debug.Log(attackCount);
         Update_Drawing();
         Update_Attacking();
         Update_Blocking();
