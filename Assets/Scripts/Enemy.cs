@@ -61,21 +61,46 @@ public partial class Enemy : MonoBehaviour, IDamagable
         Equip();
     }
 
+    private float time = 0;
+    private int counter;
     private void Update()
     {
-        if (moving.CheckNearPlayer(1.5f) & Player.attackCount < 2)
-            Update_Attacking();
+        counter = Random.Range(0, 2);
 
-        else if (Player.attackCount >= 2) 
+        if (moving.CheckNearPlayer(1.5f)) 
         {
-            Update_Blocking();
+            if (attackCount < 2)
+                Update_Attacking();
+
+            if (attackCount >= 2 & Player.playerAttack) 
+            {
+                Update_Blocking();
+            }
+                
+
+            else if (attackCount >= 2 & Player.playerAttack == false)
+            {
+                time += Time.deltaTime;
+                if (time >= 1.5f) 
+                {
+                    attackCount = 0;
+                    time = 0;
+                }
+            }
+
+            if (Player.playerAttack & counter == 1)
+                Update_Counter();
         }
+
+
+
+
             
     }
 
     public void Damage(GameObject attacker, Sword causer, Vector3 hitPoint, DoActionData data)
     {
-        Player.attackCount++;
+        attackCount++;
         if (bBlocking)
         {
             
@@ -89,13 +114,16 @@ public partial class Enemy : MonoBehaviour, IDamagable
             return;
         }
 
+        if (bCounter)
+            return;
+
         healthPoint.Damage(data.Power);
 
         if(healthPoint.IsDead == false)
             transform.LookAt(attacker.transform, Vector3.up);
 
         StopFrameComponent.Instance.Delay(data.StopFrame);
-
+        
 
         if (data.Particle != null)
         {

@@ -80,6 +80,7 @@ public partial class Player
     private int comboIndex;
     public int ComboIndex { get => comboIndex; }
 
+    public static bool playerAttack = false;
     private void Update_Attacking()
     {
         if (Input.GetButtonDown("Attack") == false)
@@ -110,6 +111,7 @@ public partial class Player
         moving.Stop();
         
         bAttacking = true;
+        playerAttack = true;
         animator.SetBool("Attacking", true);
     }
 
@@ -152,6 +154,7 @@ public partial class Player
         moving.Move();
         
         bAttacking = false;
+        playerAttack = false;
         animator.SetBool("Attacking", false);
     }
 

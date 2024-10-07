@@ -4912,7 +4912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb817897d95aab841a9018fb90b61a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoint: 100
+  maxHealthPoint: 500
 --- !u!95 &5866666020803306331
 Animator:
   serializedVersion: 5

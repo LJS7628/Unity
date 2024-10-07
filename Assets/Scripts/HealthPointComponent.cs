@@ -7,6 +7,7 @@ public class HealthPointComponent : MonoBehaviour
 
 	private float healthPoint;
 
+	public float HealthPoint { get => healthPoint; }
 	public bool IsDead { get => healthPoint <= 0.0f; }
 	private void Start ()
 	{

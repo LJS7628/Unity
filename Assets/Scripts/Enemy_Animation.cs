@@ -58,9 +58,11 @@ public partial class Enemy
      
     }
 
+    private int attackCount = 0;
     private void End_Attack()
     {
         comboIndex = 0;
+        attackCount ++;
         moving.Move();
         bAttacking = false;
         animator.SetBool("Attack", false);
@@ -80,14 +82,20 @@ public partial class Enemy
 
         bBlocking = true;
         animator.SetBool("Blocking", true);
-        Debug.Log("call");
     }
 
     private void End_Block()
     {
+        Debug.Log("call");
+        attackCount = 0;
         bBlocking = false;
         animator.SetBool("Blocking", false);
 
     }
 
+    private bool bCounter = false;
+    private void Update_Counter() 
+    {
+        Debug.Log("counter");
+    }
 }
