@@ -88,8 +88,6 @@ public partial class Enemy : MonoBehaviour, IDamagable
                 }
             }
 
-            if (Player.playerAttack & counter == 1)
-                Update_Counter();
         }
 
 
@@ -113,9 +111,6 @@ public partial class Enemy : MonoBehaviour, IDamagable
 
             return;
         }
-
-        if (bCounter)
-            return;
 
         healthPoint.Damage(data.Power);
 

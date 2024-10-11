@@ -184,4 +184,29 @@ public partial class Player
         bBlocking = false;
         animator.SetBool("Blocking", false);
     }
+
+    public static bool bCounter = false;
+    private void Update_Counter() 
+    {
+        if (Input.GetButtonDown("Counter") == false)
+            return;
+
+        bool bCheck = false;
+        bCheck |= (bEquipped == false);
+        bCheck |= (bDrawing == true);
+        bCheck |= (bSheathing == true);
+
+        if (bCheck)
+            return;
+
+        bCounter = true;
+        moving.Stop();
+        animator.SetTrigger("Counter");
+    }
+
+    private void End_Counter() 
+    {
+        moving.Move();
+        bCounter = false;
+    }
 }

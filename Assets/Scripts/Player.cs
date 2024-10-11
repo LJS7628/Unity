@@ -49,7 +49,9 @@ public partial class Player : MonoBehaviour, IDamagable
         Update_Drawing();
         Update_Attacking();
         Update_Blocking();
-	}
+        Update_Counter();
+
+    }
 
 
     public void Damage(GameObject attacker, Sword causer, Vector3 hitPoint, DoActionData data)

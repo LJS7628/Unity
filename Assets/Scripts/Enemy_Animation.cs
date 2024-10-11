@@ -9,6 +9,7 @@ public partial class Enemy
 
     private int comboIndex;
     public int ComboIndex { get => comboIndex; }
+
     private void Update_Attacking()
     {
             if (bComboEnable)
@@ -93,9 +94,4 @@ public partial class Enemy
 
     }
 
-    private bool bCounter = false;
-    private void Update_Counter() 
-    {
-        Debug.Log("counter");
-    }
 }
