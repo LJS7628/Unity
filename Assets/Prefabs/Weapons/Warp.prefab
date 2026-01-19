@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8093044743139219820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7609820333268450537}
+  - component: {fileID: 4254224191201630440}
+  m_Layer: 0
+  m_Name: Warp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7609820333268450537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093044743139219820}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 42, y: 1.0000002, z: 40}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4254224191201630440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093044743139219820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57a98d7624e98a4bb2869e312c65a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
+  weaponClip: {fileID: 8300000, guid: a418b487e69954d4e9b6be82d28611b2, type: 3}
+  doActionDatas:
+  - bCanMove: 0
+    Power: 0
+    Distance: 0
+    StopFrame: 0
+    ImpactIndex: 0
+    HitParticle: {fileID: 0}
+    HitParticlePositionOffset: {x: 0, y: 0, z: 0}
+    HitParticleScaleOffset: {x: 0, y: 0, z: 0}
+    ShakeDuration: 0
+    ShakeDirection: {x: 0, y: 0, z: 0}
+    ShakeDirectionDeviation: {x: 0, y: 0, z: 0}
+  particlePrefab: {fileID: 3744133877081091469, guid: 33579f8bbda76b74eb371cf4a2d2333f,
+    type: 3}
+  traceDistance: 100
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  cursorPrefab: {fileID: 6487013274814850512, guid: 97e20dcce967ffc4ba584656c4482816,
+    type: 3}
