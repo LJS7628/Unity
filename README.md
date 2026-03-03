@@ -1,5 +1,5 @@
 <img src="https://github.com/user-attachments/assets/c0dc39ca-0df3-4c39-92ef-3ce23634350d" width="15%" height="15%"><br>
-# Unity를 활용한 [3D RPG 게임](https://github.com/LJS7628/Unity/tree/main/Assets/Scripts)
+# Unity를 활용한 3D RPG 게임
 <br>
 
 >Unity를 활용하여 3D RPG를 구현 해봤습니다. <br>
@@ -9,7 +9,10 @@
 
 <img src="https://github.com/user-attachments/assets/8f4be3d8-640c-4d4e-bc5d-7b541cdd2acf" width="3%" height="3%"> [유튜브](https://youtu.be/b9iQUu2YuWg) <br>
 
-<img src="https://github.com/user-attachments/assets/19bfb5a8-2681-4829-86f2-002243593100" width="3%" height="3%"> [노션블로그](https://www.notion.so/Lee-Jae-Seung-s-Blog-1453a46c0753803991d6d3673d3e2bcd?source=copy_link)
+<img src="https://github.com/user-attachments/assets/19bfb5a8-2681-4829-86f2-002243593100" width="3%" height="3%"> [노션블로그](https://www.notion.so/Lee-Jae-Seung-s-Blog-1453a46c0753803991d6d3673d3e2bcd?source=copy_link)<br>
+
+<img alt="3722051" src="https://github.com/user-attachments/assets/76fed090-868d-4b74-8a21-bca1ffb00f29" width="3%" height="3%">[스크립트](https://github.com/LJS7628/Unity/tree/main/Assets/Scripts)
+
 
 
 ### 구현한 기능
